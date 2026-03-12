@@ -1,0 +1,497 @@
+/* ==========================================================================
+   style.css — Weather Dashboard
+   Aesthetic: Deep Space Glass with Aurora Blobs
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. GOOGLE FONTS
+   -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=DM+Sans:wght@400;500&display=swap');
+
+
+/* --------------------------------------------------------------------------
+   2. CSS VARIABLES
+   -------------------------------------------------------------------------- */
+:root {
+  --bg:           #080c14;
+  --glass:        rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --accent:       #38bdf8;
+  --accent2:      #818cf8;
+  --text:         #f0f4ff;
+  --muted:        rgba(240, 244, 255, 0.45);
+  --error:        #f87171;
+  --radius:       20px;
+  --card-shadow:  0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+
+/* --------------------------------------------------------------------------
+   3. RESET
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+/* --------------------------------------------------------------------------
+   4. BODY
+   -------------------------------------------------------------------------- */
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--bg);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 48px 20px 80px;
+  overflow-x: hidden;
+  color: var(--text);
+}
+
+
+/* --------------------------------------------------------------------------
+   5. BACKGROUND BLOBS (Aurora Effect)
+   -------------------------------------------------------------------------- */
+.bg-blob {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 0;
+  animation: drift 12s ease-in-out infinite alternate;
+}
+
+.blob-1 {
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, #38bdf8, transparent 70%);
+  top: -120px;
+  left: -140px;
+  animation-duration: 14s;
+}
+
+.blob-2 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, #818cf8, transparent 70%);
+  bottom: 0;
+  right: -100px;
+  animation-duration: 10s;
+  animation-delay: -5s;
+}
+
+.blob-3 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, #34d399, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-duration: 18s;
+  animation-delay: -8s;
+  opacity: 0.1;
+}
+
+@keyframes drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(30px, 20px) scale(1.08); }
+}
+
+
+/* --------------------------------------------------------------------------
+   6. APP WRAPPER
+   -------------------------------------------------------------------------- */
+.app {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+
+/* --------------------------------------------------------------------------
+   7. HEADER
+   -------------------------------------------------------------------------- */
+.header {
+  text-align: center;
+  padding: 8px 0 4px;
+  animation: fadeDown 0.6s ease both;
+}
+
+.header-icon {
+  font-size: 3rem;
+  margin-bottom: 8px;
+  display: block;
+  filter: drop-shadow(0 0 14px rgba(56, 189, 248, 0.6));
+}
+
+.header h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, #f0f4ff 30%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header p {
+  font-size: 0.92rem;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+
+/* --------------------------------------------------------------------------
+   8. SEARCH BAR
+   -------------------------------------------------------------------------- */
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 10px 10px 10px 16px;
+  backdrop-filter: blur(16px);
+  box-shadow: var(--card-shadow);
+  animation: fadeDown 0.65s ease 0.1s both;
+  transition: border-color 0.2s;
+}
+
+.search-bar:focus-within {
+  border-color: rgba(56, 189, 248, 0.5);
+}
+
+.search-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  caret-color: var(--accent);
+}
+
+.search-input::placeholder {
+  color: var(--muted);
+}
+
+.search-button {
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 22px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s;
+}
+
+.search-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(56, 189, 248, 0.45);
+}
+
+.search-button:active {
+  transform: translateY(0);
+  opacity: 0.85;
+}
+
+
+/* --------------------------------------------------------------------------
+   9. RECENT SEARCHES
+   -------------------------------------------------------------------------- */
+.recent-searches {
+  display: none;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  backdrop-filter: blur(12px);
+  animation: fadeDown 0.65s ease 0.15s both;
+}
+
+.recent-searches.visible {
+  display: block;
+}
+
+/* Header row — label on left, Clear All button on right */
+.recent-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.recent-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Clear All button */
+.clear-all-btn {
+  background: rgba(248, 113, 113, 0.12);
+  color: #f87171;
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  border-radius: 7px;
+  padding: 4px 12px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.clear-all-btn:hover {
+  background: rgba(248, 113, 113, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Chips list */
+.recent-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Each chip = city name + ✕ button */
+.recent-chip {
+  display: flex;
+  align-items: center;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.15s;
+}
+
+.recent-chip:hover {
+  transform: translateY(-1px);
+}
+
+/* City name — click to search */
+.chip-name {
+  color: var(--accent);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.chip-name:hover {
+  background: rgba(56, 189, 248, 0.15);
+}
+
+/* ✕ Remove button — right next to city name */
+.chip-remove {
+  background: transparent;
+  color: rgba(56, 189, 248, 0.5);
+  border: none;
+  border-left: 1px solid rgba(56, 189, 248, 0.2);
+  padding: 6px 9px;
+  font-size: 0.72rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: background 0.2s, color 0.2s;
+}
+
+.chip-remove:hover {
+  background: rgba(248, 113, 113, 0.2);
+  color: #f87171;
+}
+
+
+/* --------------------------------------------------------------------------
+   10. STATUS MESSAGES (Loading / Error / Empty)
+   -------------------------------------------------------------------------- */
+.status-message {
+  display: none;
+  text-align: center;
+  padding: 32px 24px;
+  border-radius: var(--radius);
+  font-size: 0.97rem;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+}
+
+.status-message.visible {
+  display: block;
+}
+
+.status-message.empty {
+  background: var(--glass);
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  color: var(--muted);
+}
+
+.status-message.loading {
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  color: var(--accent);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.status-message.error-msg {
+  background: rgba(248, 113, 113, 0.08);
+  border: 1px solid rgba(248, 113, 113, 0.25);
+  color: var(--error);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.45; }
+}
+
+
+/* --------------------------------------------------------------------------
+   11. WEATHER CARD
+   -------------------------------------------------------------------------- */
+.weather-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 28px;
+  padding: 32px 28px 28px;
+  backdrop-filter: blur(20px);
+  box-shadow: var(--card-shadow);
+  animation: fadeUp 0.45s ease both;
+}
+
+/* Card Top — city info + weather icon */
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.city-info {
+  flex: 1;
+}
+
+.city-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+}
+
+.condition {
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin-top: 5px;
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+.weather-icon {
+  width: 86px;
+  height: 86px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 4px 16px rgba(56, 189, 248, 0.5));
+}
+
+/* Card Bottom — temperature + toggle button */
+.card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid var(--glass-border);
+  padding-top: 22px;
+}
+
+.temp-display {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  line-height: 1;
+}
+
+.temperature {
+  font-family: 'Outfit', sans-serif;
+  font-size: 4rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #ffffff 40%, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.temp-unit-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.toggle-button {
+  background: rgba(129, 140, 248, 0.12);
+  color: var(--accent2);
+  border: 1px solid rgba(129, 140, 248, 0.3);
+  border-radius: 12px;
+  padding: 10px 18px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.toggle-button:hover {
+  background: rgba(129, 140, 248, 0.25);
+  transform: translateY(-1px);
+}
+
+
+/* --------------------------------------------------------------------------
+   12. KEYFRAME ANIMATIONS
+   -------------------------------------------------------------------------- */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* --------------------------------------------------------------------------
+   13. RESPONSIVE — Small Phones
+   -------------------------------------------------------------------------- */
+@media (max-width: 420px) {
+  .header h1     { font-size: 1.9rem; }
+  .temperature   { font-size: 3.2rem; }
+  .city-name     { font-size: 1.4rem; }
+  .search-button { padding: 10px 14px; font-size: 0.88rem; }
+  .weather-card  { padding: 24px 18px 20px; }
+}
