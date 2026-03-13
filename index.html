@@ -1,78 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Weather Dashboard</title>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
-
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css"/>
-</head>
-<body>
-
-  <!-- Animated background blobs -->
-  <div class="bg-blob blob-1"></div>
-  <div class="bg-blob blob-2"></div>
-  <div class="bg-blob blob-3"></div>
-
-  <!-- Main App Container -->
-  <div class="app">
-
-    <!-- Header -->
-    <header class="header">
-      <div class="header-icon">🌤</div>
-      <h1>Weather Dashboard</h1>
-      <p>Real-time weather for any city in the world</p>
-    </header>
-
-    <!-- Search Bar -->
-    <div class="search-bar">
-      <span class="search-icon">🔍</span>
-      <input
-        type="text"
-        id="cityInput"
-        class="search-input"
-        placeholder="Search a city..."
-        autocomplete="off"
-      />
-      <button id="searchBtn" class="search-button">Search</button>
-    </div>
-
-    <!-- Recent Searches -->
-    <div class="recent-searches" id="recentSearches">
-      <!-- Populated by JS -->
-    </div>
-
-    <!-- Status Messages -->
-    <div id="statusMsg" class="status-message empty">
-      🌍 Enter a city name above to see the weather!
-    </div>
-
-    <!-- Weather Card (hidden until data loads) -->
-    <div class="weather-card" id="weatherCard" style="display:none;">
-      <div class="card-top">
-        <div class="city-info">
-          <h2 id="cityName" class="city-name"></h2>
-          <p id="conditionText" class="condition"></p>
-        </div>
-        <img id="weatherIcon" class="weather-icon" src="" alt="weather icon"/>
-      </div>
-
-      <div class="card-bottom">
-        <div class="temp-display">
-          <span id="tempValue" class="temperature"></span>
-          <span class="temp-unit-label" id="unitLabel">°C</span>
-        </div>
-        <button id="toggleUnitBtn" class="toggle-button">Switch to °F</button>
-      </div>
-    </div>
-
-  </div><!-- end .app -->
-
-  <!-- Script -->
-  <script src="script.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>weather-app</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
